@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>restc docs</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../dist/restc.min.js"></script>
+    <script src="prism/prism.js"></script>
+    <link id="css" rel="stylesheet" href="prism/prism-black.css" />
+    <style>.menu, a[href="#top"] {z-index:999999999;overflow: hidden; position: fixed; right: 8px; cursor: pointer; opacity: 0.8; background: #eee; text-decoration: none; border-radius: 5px; } .menu { top: 8px; padding-right: 10px; } .menu h3 { margin-left: 10px } a[href="#top"] { width: 50px; height: 50px; bottom: 8px; cursor: pointer; text-decoration: none; font-size: 24px; text-align: center; line-height: 50px; } .css-btn-list { float: right; list-style: none; padding: 0; margin: 0; } .css-btn-list li { margin-left: 5px; float: left; background: #f5f2f0; width: 20px; height: 20px; } .css-btn-list li.black { background: black; } .css-btn-list li.blue { background: #358ccb; } </style>
+</head>
+<body>
+
+<h1 id="top">restc docs</h1>
+<ul>
+    <li>version:1.0</li>
+    <li>Auther:Yimi</li>
+    <li>Date:2017-05-15 17:45</li>
+</ul>
+
+<div class="menu">
+    <h3>目录
+        <ul class="css-btn-list">
+            <li></li>
+            <li class="black"></li>
+            <li class="blue"></li>
+        </ul>
+    </h3>
+    <ol>
+        <li><a href="#setOptions">[setOptions]</a></li>
+        <li><a href="#post">[post]</a></li>
+        <li><a href="#get" >[get]</a></li>
+        <li><a href="#put" >[put]</a></li>
+        <li><a href="#patch" >[patch]</a></li>
+        <li><a href="#error" >[重写error]</a></li>
+    </ol>
+</div>
+
+<ol>
+<li><h3 id="setOptions">[setOptions]</h3>
+<pre><code class="language-javascript">/**
+ * rest初始化
+ */
+var token = 'eyJhbGciOiJIUzI1NiJ9';
+restc.setOptions({
+    baseUrl : 'http://localhost:8080/api/', //api的url
+    headers: {
+        authorization: token //token
+    }
+});
+</code></pre></li>
+
+
+<li><h3 id="post">[post]</h3>
+<pre><code class="language-javascript">/**
+ * 获取用户列表
+ * [POST] http://localhost:8080/api/user
+ */
+restc.post({
+    url: 'user',
+    success: function (result) {
+        //成功执行的代码
+        console.log(result)
+    },
+    error:function() {
+        //失败执行的代码
+    }
+});
+</code></pre></li>
+
+
+    <li><h3 id="get">[get]</h3>
+<pre><code class="language-javascript">/**
+ * 查询用户编号为1的用户
+ * [GET] http://localhost:8080/api/user/1
+ */
+restc.get({
+    url: 'user/{userId}',
+    params: {userId: 1},
+    success: function (result) {
+        console.log(result)
+    },
+    error:function() {
+
+    }
+});
+</code></pre></li>
+
+
+    <li><h3 id="put">[put]</h3>
+<pre><code class="language-javascript">/**
+ * 新增用户
+ * [PUT] http://localhost:8080/api/user
+ */
+restc.put({
+    url: 'user',
+    data : {
+        'userName' : 'testuser',
+        'userRealName' : '测试用户',
+        'sex' : 'W',
+        'depId' : '1',
+        'phone': '1862348702'
+    },
+    success: function (result) {
+        console.log(result)
+    },
+    error:function() {
+
+    }
+});
+</code></pre></li>
+
+    <li><h3 id="patch">[patch]</h3>
+<pre><code class="language-javascript">/**
+ * 禁用编号为1的用户
+ * [PATCH] http://localhost:8080/api/user/1
+ */
+restc.patch({
+    url: 'user/{userId}',
+    params: {userId: 1},
+    data : {status : "N"},
+    success: function(result) {
+        console.log(result)
+    },
+    error : function (result) {
+    }
+});
+</code></pre></li>
+
+
+    <li><h3 id="del">[del]</h3>
+<pre><code class="language-javascript">/**
+ * 删除编号为1的用户
+ * [DELETE] http://localhost:8080/api/user/1
+ */
+restc.del({
+    url: 'user/{userId}',
+    params: {userId: 1},
+    success: function (result) {
+        console.log(result)
+    },
+    error:function() {
+
+    }
+});
+</code></pre></li>
+
+    <li><h3 id="error">重写error</h3>
+<pre><code class="language-javascript">/**
+ * 重写error
+ */
+restc.post({
+    url: 'user',
+    success: function (result) {
+        console.log(result)
+    },
+    error : function() {//重写error
+
+    }
+});
+</code></pre></li>
+</ol>
+<a href="#top">TOP</a>
+<script>
+    $('.css-btn-list').on('click', 'li', function() {
+        var _$this = $(this),_$css = $('#css');
+       if(_$this.hasClass('black')) {
+           _$css.attr('href', 'prism/prism-black.css');
+       } else if(_$this.hasClass('blue')) {
+           _$css.attr('href', 'prism/prism-blue.css');
+       } else {
+           _$css.attr('href', 'prism/prism-default.css');
+       }
+    })
+</script>
+</body>
+</html>
